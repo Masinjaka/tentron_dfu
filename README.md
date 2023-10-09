@@ -1,6 +1,6 @@
 # tentron_dfu
 
-An over the air device firmware update  for nrf5 legacy bootloader based devices  
+This plugin allows you to perform OTA DFU of your nrf52-based device. Tested on Adafruit nrf52840 feather.
 
 ## Getting Started
 
