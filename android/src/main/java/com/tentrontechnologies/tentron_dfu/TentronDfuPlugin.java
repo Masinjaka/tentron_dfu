@@ -7,7 +7,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,6 +37,7 @@ public class TentronDfuPlugin implements FlutterPlugin, MethodCallHandler {
     private DfuServiceController mDfuServiceController;
     private MethodChannel channel;
     private WeakReference<Context> tWeakContext;
+    //private String url = "https://raw.githubusercontent.com/Masinjaka/device_firmware_releases/main/v0.1/bleuart_me.ino.zip";
 
     private DownloadTask downloadTask;
 
@@ -85,7 +85,7 @@ public class TentronDfuPlugin implements FlutterPlugin, MethodCallHandler {
         downloadTask = new DownloadTask(tWeakContext, new DownloadTask.Listener() {
             @Override
             public void onProgress(int progress) {
-                System.out.println("Download progress" + progress);
+                System.out.println("Download progress " + progress);
             }
 
             @Override
@@ -98,12 +98,12 @@ public class TentronDfuPlugin implements FlutterPlugin, MethodCallHandler {
 
 
 
-        /*String hexMessage = getByteArrayOutputStreamOfHexFile(uriHex,"firmware.hex");
-        String iniMessage = getByteArrayOutputStreamOfHexFile(uriIni,"firmware.ini");
+        //String hexMessage = getByteArrayOutputStreamOfHexFile(uriHex,"firmware.zip");
+        //String iniMessage = getByteArrayOutputStreamOfHexFile(uriIni,"firmware.ini");
 
-        if(hexMessage != null && iniMessage != null){
-            install(tContext,deviceAddress,deviceName,hexMessage,iniMessage);
-            result.success("HEX MESSAGE: " + hexMessage + ", INI MESSAGE: " + iniMessage);
+        /*if(hexMessage != null){
+            install(tContext,deviceAddress,deviceName,hexMessage);
+            result.success("HEX MESSAGE: " + hexMessage);
         }else{
             result.error("One file is null", "That's it, one file is null", null);
         }*/
@@ -190,7 +190,7 @@ public class TentronDfuPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
 
-    private void install (@NonNull Context context, @NonNull String address, @NonNull String deviceName, @NonNull String localHexPath, @NonNull String localIniFile){
+    private void install (@NonNull Context context, @NonNull String address, @NonNull String deviceName, @NonNull String localHexPath){
         final DfuServiceInitiator starter = new DfuServiceInitiator(address);
         if(deviceName!=null){
             starter.setDeviceName(deviceName);
@@ -202,11 +202,11 @@ public class TentronDfuPlugin implements FlutterPlugin, MethodCallHandler {
             starter.setPacketsReceiptNotificationsEnabled(true);
             starter.setPacketsReceiptNotificationsValue(kForceNumberOfPacketsReceiptNotificationsValue);
         }
-
-        starter.setBinOrHex(DfuService.TYPE_APPLICATION,null,localHexPath);
-        if(localIniFile != null){
+        starter.setZip(localHexPath);
+        //starter.setBinOrHex(DfuService.TYPE_APPLICATION,null,localHexPath);
+        /*if(localIniFile != null){
             starter.setInitFile(null,localIniFile);
-        }
+        }*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DfuServiceInitiator.createDfuNotificationChannel(context);
         }

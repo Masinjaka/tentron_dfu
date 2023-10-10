@@ -337,7 +337,7 @@ class _MyAppState extends State<MyApp> {
                                         //
                                         //scheme = await _tentronDfuPlugin.doDfu('No address',hexuri!,iniuri!);
                                         try{
-                                          scheme = await _tentronDfuPlugin.doDfu(identity,connectedDeviceName,hexuri!,iniuri!);
+                                          scheme = await _tentronDfuPlugin.doDfu(identity,connectedDeviceName,"https://raw.githubusercontent.com/Masinjaka/device_firmware_releases/main/v0.1/bleuart_me.ino.zip",iniuri!);
                                         }on PlatformException{
                                           _log = scheme!;
                                         }
