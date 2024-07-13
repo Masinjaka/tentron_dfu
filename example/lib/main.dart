@@ -33,15 +33,16 @@ class _MyAppState extends State<MyApp> {
 
   // Connection streams
   late Stream<ConnectionStateUpdate> _connectionStream;
+  // ignore: unused_field
   late StreamSubscription<ConnectionStateUpdate> _connectionSubscription;
 
   //To check if the app is conencted to something
   bool connectedToSomething = false;
+  // ignore: prefer_typing_uninitialized_variables
   var identity;
 
   //Device firmware update
   bool dfuRunning = false;
-  late int _currentpercentage = 0;
 
   // controller for the pageView
   PageController pageController = PageController(initialPage: 0);
@@ -145,7 +146,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     askLocationPermission();
     initPlatformState();
@@ -170,7 +171,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
@@ -277,7 +277,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Expanded(
-                flex:3,
+                flex: 3,
                 child: OInformation(
                   title: "Devices",
                   child: SizedBox(
@@ -325,7 +325,7 @@ class _MyAppState extends State<MyApp> {
                                   Text(identity),
                                   const SizedBox(height: 2),
                                   ElevatedButton(
-                                    onPressed: () async{
+                                    onPressed: () async {
                                       stopScanning();
                                       setState(() {
                                         dfuRunning = true;
@@ -336,19 +336,24 @@ class _MyAppState extends State<MyApp> {
                                           !(iniuri! == "Mbola tsisy")) {
                                         //
                                         //scheme = await _tentronDfuPlugin.doDfu('No address',hexuri!,iniuri!);
-                                        try{
-                                          scheme = await _tentronDfuPlugin.doDfu(identity,connectedDeviceName,"https://raw.githubusercontent.com/Masinjaka/device_firmware_releases/main/v0.1/bleuart_me.ino.zip",iniuri!);
-                                        }on PlatformException{
+                                        try {
+                                          scheme = await _tentronDfuPlugin.doDfu(
+                                              identity,
+                                              connectedDeviceName,
+                                              "https://raw.githubusercontent.com/Masinjaka/device_firmware_releases/main/v0.1/bleuart_me.ino.zip");
+                                        } on PlatformException {
                                           _log = scheme!;
                                         }
                                       } else {
                                         if (hexuri! == "Mbola tsisy") {
-                                          scheme = "Choisit d'abord l'url de fichier hex";
+                                          scheme =
+                                              "Choisit d'abord l'url de fichier hex";
                                         } else if (iniuri! == "Mbola tsisy") {
-                                          scheme = "Choisit d'abord l'url de fichier ini";
+                                          scheme =
+                                              "Choisit d'abord l'url de fichier ini";
                                         } else {
                                           scheme =
-                                          "Choisit d'abord l'url des fichiers hex et ini";
+                                              "Choisit d'abord l'url des fichiers hex et ini";
                                         }
                                       }
 
