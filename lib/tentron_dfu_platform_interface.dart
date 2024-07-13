@@ -27,7 +27,24 @@ abstract class TentronDfuPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<String?> doDfu(String deviceAddress,String deviceName,String hexUri,String iniUri){
+  Future<String?> doDfu(String deviceAddress,String deviceName,String firmwareUri,{
+    DfuCallback? onDeviceConnected,
+    DfuCallback? onDeviceConnecting,
+    DfuCallback? onDeviceDisconnected,
+    DfuCallback? onDeviceDisconnecting,
+    DfuCallback? onDfuAborted,
+    DfuCallback? onDfuCompleted,
+    DfuCallback? onDfuProcessStarted,
+    DfuCallback? onDfuProcessStarting,
+    DfuCallback? onEnablingDfuMode,
+    DfuCallback? onFirmwareValidating,
+    DfuErrorCallback? onError,
+    DfuProgressCallback? onProgressChanged,
+  }){
     throw UnimplementedError('doDfu() has not been implemented.');
+  }
+
+  Future<String?> endDfu(){
+    throw UnimplementedError("ednDfu() not implemented");
   }
 }
